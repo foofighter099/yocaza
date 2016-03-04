@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var data = require('./componants/data');
 
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
@@ -8,6 +9,12 @@ var Link = ReactRouter.Link;
 var IndexRoute = ReactRouter.IndexRoute;
 var browserHistory = ReactRouter.browserHistory;
 
+var OrderForm = require('./componants/OrderForm.jsx');
+var ChooseFields = require('./componants/Choose.jsx');
+var CustomToppings = require('./componants/Custom.jsx');
+
+
+
 // A simple navigation component
 var Navigation = React.createClass({
   render: function() {
@@ -15,13 +22,13 @@ var Navigation = React.createClass({
       <nav className="main-menu">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/Order">Order</Link>
           </li>
           <li>
-            <Link to="/about">About Us</Link>
+            <Link to="/Choose">Choose</Link>
           </li>
           <li>
-            <Link to="/team">Meet the team</Link>
+            <Link to="/Custom">Custom</Link>
           </li>
         </ul>
       </nav>
@@ -32,6 +39,8 @@ var Navigation = React.createClass({
 // The main application layout
 // this.props.children will be set by React Router depending on the current route
 var App = React.createClass({
+
+  
   render: function() {
     return (
       <main>
@@ -42,37 +51,56 @@ var App = React.createClass({
   }
 });
 
-// home "page"
-var Home = React.createClass({
+
+var Order = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>Homepage!</h1>
-        <p>Welcome to the homepage! Try to click on a link in the nav, then click the browser's back button.</p>
+        <h1>Order</h1>
+        <OrderForm />
       </div>
     );
   }
 });
 
-// about "page"
-var About = React.createClass({
+
+
+
+var Choose = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>About Page!</h1>
-        <p>Welcome to the about page!</p>
+        <h1>Choose your Pizza</h1>
+        <ChooseFields />
       </div>
     );
   }
 });
 
-// team "page"
-var Team = React.createClass({
+
+var Custom = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>Meet the team!</h1>
-        <p>Welcome to the team page!</p>
+        <h1>Custom Order</h1>
+        <CustomToppings />
+      </div>
+    );
+  }
+});
+
+var Done = React.createClass({
+  render: function() {
+    console.log(data)
+    return (
+      <div>
+        <h1>Your Order:</h1>
+        {data.order}
+        <h2>Client Info:</h2>
+        {data.name}<br/>
+        {data.phone}<br/>
+        {data.email}<br/>
+        {data.address}<br/>
       </div>
     );
   }
@@ -100,12 +128,15 @@ The whole process lets us create **complex, nested user interfaces** with minima
 by simply nesting `Route` components.
 */
 
+
 var routes = (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={Home}/>
-      <Route path="about" component={About}/>
-      <Route path="team" component={Team}/>
+      <IndexRoute component={Order}/>
+      <Route path="Order" component={Order}/>
+      <Route path="Choose" component={Choose}/>
+      <Route path="Custom" component={Custom}/>
+      <Route path="Done" component={Done}/>
       <Route path="*" component={NotFound}/>
     </Route>
   </Router>
