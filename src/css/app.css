@@ -5,3 +5,382 @@ html {
 *, *::before, *::after {
   box-sizing: inherit;
 }
+
+#header {
+  display:table;
+  margin:auto;
+}
+#logo { 
+  color: #157ad8; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 245px; 
+  font-weight: bold; 
+  letter-spacing: -1px; 
+  line-height: 0; 
+  text-align: center; 
+  margin-top: 100px;
+}
+
+#tagline {
+  color: #111; 
+  font-family: 'Open Sans', sans-serif; 
+  font-size: 30px; 
+  font-weight: 300; 
+  line-height: 32px; 
+  margin: -65px 0px 60px 0px;
+  text-align: right; 
+}
+
+body {
+  background: #F5F5F5; 
+}
+#A4 {
+  background: white;
+  width: 21.6cm;
+  height: 27.9cm;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+@media print {
+  #A4 {
+    box-shadow: none;
+  }
+  #header {
+    display:none;
+  }
+  .submitButton {
+    display:none;
+  }
+  @page {
+    margin:0;
+  }
+}
+
+.mainImg {
+  background-image: url("./placeholderimages/mainImagePlaceholder.png");
+  background-color: #fff;
+  width: 100%;
+  height:12cm;
+  overflow: hidden;
+  background-position: center center
+}
+.mainImg div {
+  width:100%;
+  height:100%;
+}
+.mainImg div img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.subImgs {
+  /*width: 8cm;*/
+  /*height: 4cm;*/
+  overflow: hidden;
+  background-color: #333;
+  /*background-image: url("./placeholderimages/subimages1.png");*/
+}
+
+.imageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  margin: 8px 8px 0 8px;
+  height:15.48cm;
+  width: 9cm;
+  background-color:rgb(204,204,204);
+}
+
+.few-images .imageContainer {
+  align-items: flex-start;
+}
+
+.imageContainer div{
+  flex:1 0 50%;
+  padding: 4px;
+  /*background-clip: content-box;*/
+  border: 4px solid white;
+  position: relative;
+}
+.few-images .imageContainer div {
+  min-height: 50%;
+  min-width: 100%;
+}
+.imageContainer div img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.contentBody: {
+  height:15.9cm;
+}
+
+.moreinfo {
+  width:12cm;
+}
+.details {
+  height: 15.9;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+.contentBody {
+  display: flex;
+}
+
+.address {
+  color: #157ad8; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 30px; 
+  font-weight: bold; 
+  letter-spacing: -1px; 
+  padding-top: 10px;
+  width: 100%;
+  border: none;
+}
+
+.price { 
+  color: #111; 
+  font-family: 'Open Sans', sans-serif; 
+  font-size: 25px; 
+  font-weight: 300; 
+  line-height: 32px; 
+  text-align: left; 
+  border: none;
+  width: 225px;
+}
+
+.description { 
+  color: #685206; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 14px; 
+  text-align: justify; 
+  text-justify: inter-word; 
+  width: 11.9cm;
+  height: 260px;
+  border: none;
+  resize: none;
+}
+
+.SameLine{
+  display:flex;
+  align-items:baseline;
+  justify-content: space-between;
+}
+
+.beds{
+  width: 30px;
+  border: none;
+  text-align: center;
+  font-size: 17px;
+
+}
+
+.baths {
+  width: 30px;
+  border: none;
+  text-align: center;
+  font-size: 17px;
+}
+
+
+.name {
+  color: black; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 25px; 
+  font-weight: bold; 
+  letter-spacing: -1px; 
+  width: 100%;
+  border: none;
+  text-align: right;
+}
+.email {
+  color: #999; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 20px; 
+  width: 100%;
+  border: none;
+  text-align: right;
+  padding: 0;
+}
+
+.heading {
+  color: black; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 15px; 
+  width: 100%;
+  border: none;
+  text-align: right;
+  padding: 0px;
+}
+
+.phone {
+  color: #999; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 20px; 
+  width: 100%;
+  border: none;
+  text-align: right;
+  padding: 0;
+}
+
+.other {
+  color: #999; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 15px; 
+  width: 100%;
+  border: none;
+  text-align: right;
+  padding: 0;
+}
+
+.labelBathAndBed{
+  color: black; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 15px; 
+  text-align: right;
+}
+
+.contactcard {
+  width:11.9cm;
+}
+
+/*GEO SUGGEST*/
+.geosuggest {
+  font-size: 25px;
+  font-size: 1rem;
+  position: relative;
+  margin: 1em auto;
+  text-align: left;
+}
+.geosuggest__input {
+  width: 100%;
+  border: 2px solid transparent;
+  padding: .5em 1em;
+  -webkit-transition: border 0.2s, box-shadow 0.2s;
+          transition: border 0.2s, box-shadow 0.2s;
+}
+.geosuggest__input:focus {
+  border-color: #267dc0;
+  box-shadow: 0 0 0 transparent;
+  
+  color: #157ad8; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 20px; 
+  font-weight: bold; 
+  letter-spacing: -1px; 
+}
+.geosuggest__suggests {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 25em;
+  padding: 0;
+  margin-top: -1px;
+  background: #fff;
+  border: 2px solid #267dc0;
+  border-top-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
+  z-index: 5;
+  -webkit-transition: max-height 0.2s, border 0.2s;
+          transition: max-height 0.2s, border 0.2s;
+          
+}
+.geosuggest__suggests--hidden {
+  max-height: 0;
+  overflow: hidden;
+  border-width: 0;
+}
+
+/**
+ * A geosuggest item
+ */
+input.geosuggest__input {
+  color: #157ad8; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  font-size: 20px; 
+  font-weight: bold; 
+  letter-spacing: -1px; 
+  margin-left: 0;
+  padding-left: 2px;
+} 
+ 
+.geosuggest-item {
+  font-size: 18px;
+  padding: .5em .65em;
+  cursor: pointer;
+}
+.geosuggest-item:hover,
+.geosuggest-item:focus {
+  background: #f5f5f5;
+}
+.geosuggest-item--active {
+  background: #267dc0;
+  color: #fff;
+}
+.geosuggest-item--active:hover,
+.geosuggest-item--active:focus {
+  background: #ccc;
+}
+
+/*ToolBar*/
+#toolbar{
+  width:100%;
+  bottom:0;
+  position: fixed;
+  left:0;
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+}
+
+#toolbar {
+  display: flex;
+  z-index: 6;
+  justify-content:flex-end;
+}
+
+#toolbar button {
+  background-color: orange; 
+  font-size:2em;
+  width:20%;
+  border: 2px solid white;
+
+} 
+
+.contactcard{
+  align-self: flex-end;
+  padding:10px;
+}
+
+
+.touchControl :active {
+    border:1px solid #157ad8;
+    border-radius:10px;
+    animation: vibrate 0.3s infinite;
+  }
+
+@keyframes vibrate {
+  50% { transform: rotate(1deg) translateX(1px); }
+  100% { transform: rotate(-1deg) translateX(-1px); }
+}
+
+.deleteButton{
+  position: relative;
+  z-index: 2;
+  /*display:none;*/
+}

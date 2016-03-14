@@ -9,8 +9,16 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel',
         exclude: /node_modules/
+      },
+      {
+        test:/\.css$/,
+        loaders: ['style', 'css', 'autoprefixer']
+      },
+      {
+        test: /\.png$/,
+        loader: 'url'
       }
     ]
   },
-  devtool: 'sourcemap'
+  devtool: 'eval'
 }
