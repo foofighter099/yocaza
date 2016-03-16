@@ -2,22 +2,7 @@ var House = Parse.Object.extend('House');
 Parse.Cloud.define('hello', function(req, res){
   res.success('hello')
 })
-// Parse.Cloud.beforeSave(Parse.User, function(req, res) {
-//   if (!request.object.get("email")) {
-//     response.error("email is required to send/save this feature sheet");
-//   } else {
-//     response.success();
-//   }
-// });
-// Parse.Cloud.define('agentListings', function(req, res) {
-//   var query = new Parse.Query('listings');
-//   query.equalTo('user', req.params.user);
-//   query.find({
-//     success: function(res) {
-//       for (var i = 0; i < res.length; ++i)
-//     }
-//   })
-// })
+
 Parse.Cloud.define('savePdf', function(req, res){
   var newHouse = new House()
   newHouse.set({
