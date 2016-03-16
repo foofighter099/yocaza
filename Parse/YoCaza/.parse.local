@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "YoCaza": {
+      "applicationId": "lQnkbNmyR7nIjCi8T2afRofbjAu0XoiwawDoS0oj"
+    },
+    "_default": {
+      "link": "YoCaza"
+    }
+  }
+}

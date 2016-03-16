@@ -21,6 +21,7 @@ var hub = new EventEmitter()
 var DropImages = React.createClass({
     getInitialState: function () {
         return {
+          parseFiles: [],
           files: [],
           background: true
         };
@@ -71,6 +72,15 @@ var DropImages = React.createClass({
         files: files
       });
       }
+      
+      this.setState({
+        files: this.state.files.concat(files),
+        parseFiles: this.state.parseFiles.concat(
+          files.map(function(file) {
+            return new Parse.File(file.name, file).save()
+          })
+        )
+      })
     },
 
     onOpenClick: function () {
@@ -78,9 +88,11 @@ var DropImages = React.createClass({
     },
 
     getValues: function() {
-    return this.state.files
+      return {
+        files: this.state.files, 
+        parseFiles: this.state.parseFiles
+      }
     },
-
     render: function () {
       var containerClassname = '';
       var containerBackground = '';
@@ -96,7 +108,7 @@ var DropImages = React.createClass({
 
         return (
             <div className={containerClassname}>
-                <Dropzone className={setClass} ref="dropzone" onDrop={this.onDrop}>
+                <Dropzone className={setClass} ref="dropzone" onDrop={this.onDrop} maxFiles={this.props.maxFiles}>
                     {this.state.files.map((file,i) => (
                       <div
                       key={i}
@@ -230,19 +242,19 @@ var App = React.createClass({
     };
   },
 
-  openModal: function(x) {
-    console.log(x);
-    if (!x.agentContactInfo.email){
+  openModal: function(featureSheet) {
+    console.log(featureSheet);
+    if (!featureSheet.agentContactInfo.email){
       ReactDOM.findDOMNode(this.refs.featuresheetpage.refs.cc.refs.email).focus()
-    } else if (!x.mainImage[0]){
+    } else if (!featureSheet.mainImage.files[0]){
       alert("Enter your images before proceeding.")
     }
     else {
     this.setState({
-      houseData: x,
+      houseData: featureSheet,
       modalIsOpen: true,
-      Email: x.agentContactInfo.email,
-      Mainimage: x.mainImage[0].preview
+      Email: featureSheet.agentContactInfo.email,
+      Mainimage: featureSheet.mainImage.files[0].preview
     });
     }
   },
@@ -252,8 +264,20 @@ var App = React.createClass({
     });
   },
   sendPdf: function() {
-    Parse.Cloud.run('savePdf', {agentContact: this.state.houseData.agentContactInfo, homeDetails: this.state.houseData.homeDetails}).then(function(res){
-      console.log(res);
+    var that = this;
+    console.log('goodbye');
+    Parse.Promise.when(
+      this.state.houseData.mainImage.parseFiles[0],
+      Parse.Promise.when(this.state.houseData.otherImages.parseFiles)
+    ).then(function(mainImage, otherImages){
+      Parse.Cloud.run('savePdf', {
+        agentContact: that.state.houseData.agentContactInfo, 
+        homeDetails: that.state.houseData.homeDetails,
+        mainImage: mainImage,
+        otherImages: otherImages
+      }).then(function(res){
+        console.log(res);
+      })
     })
   },
   render: function() {
