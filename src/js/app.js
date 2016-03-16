@@ -21,39 +21,17 @@ var hub = new EventEmitter()
 var DropImages = React.createClass({
     getInitialState: function () {
         return {
-          files: []
+          files: [],
+          background: true
         };
     },
-    
+
     removeImage: function(e, x){
-      // x.dataTransfer.setData('image', x.currentTarget);
-        // if (e%2 == 0){
-        // if (x.nativeEvent.offsetX < -14 || x.nativeEvent.offsetX > 340){
-        //   this.state.files.splice(e,1);
-        //   this.forceUpdate();
-        // }
-        // } else {
-        //   if (x.nativeEvent.offsetX < -185 || x.nativeEvent.offsetX > 175){
-        //         this.state.files.splice(e,1);
-        //         this.forceUpdate();
-        // }
-        // }
-        // x.target.style.border="none"
-    },
-    deleteZone: function(e,x){
-      // target.style.border="4px solid red"
-    console.log(x.target)
-    },
-    position: function(e,x){
-        if (e%2 == 0){
-         if (x.nativeEvent.offsetX < -14 || x.nativeEvent.offsetX > 340){
-           x.target.style.border="4px solid red"
-         } else {x.target.style.border="none"}
-        } else {
-          if (x.nativeEvent.offsetX < -185 || x.nativeEvent.offsetX > 175){
-           x.target.style.border="4px solid red"
-         } else {x.target.style.border="none"}
-        }
+      e.preventDefault();
+      e.stopPropagation();
+      var index = x.toString()
+      this.state.files.splice(index.substr(index.indexOf("$")+1,1),1);
+      this.forceUpdate();
     },
     dragStart: function(e, x){
        x.dataTransfer.setData("text", e);
@@ -76,7 +54,14 @@ var DropImages = React.createClass({
 
 
   },
-  
+    onTouchStart: function(e,x){
+      this.is_touch = (x.touches);
+      this.touching = true;
+      this.onTouchMove(x);
+    },
+    touchMove: function(e,x){
+      x.dataTransfer.getData("text")
+    },
     onDrop: function (files) {
       if (this.state.files.length > 0){
         files.map((file) => this.state.files.push(file))
@@ -87,40 +72,44 @@ var DropImages = React.createClass({
       });
       }
     },
-    
+
     onOpenClick: function () {
       this.refs.dropzone.open();
     },
-    
+
     getValues: function() {
     return this.state.files
     },
 
     render: function () {
       var containerClassname = '';
+      var containerBackground = '';
       if (this.state.files.length <= 2) {
         var containerClassname = 'few-images';
       }
-      
+
+      if(this.state.files.length > 0){
+        containerBackground = "containerBackground"
+      }
+
+        var setClass = this.props.classname + " " + containerBackground
+
         return (
             <div className={containerClassname}>
-                <Dropzone className={this.props.classname} ref="dropzone" onDrop={this.onDrop}>
+                <Dropzone className={setClass} ref="dropzone" onDrop={this.onDrop}>
                     {this.state.files.map((file,i) => (
-                      <div 
-                      key={i} 
+                      <div
+                      key={i}
                       data-tag={i}
-                      onTouchEnd={this.dragEnd.bind(this, i)}
-                      onTouchMove={this.dragStart.bind(this, i)}
-                      onTouchStart={this.dragStart.bind(this, i)} 
+                      // onTouchEnd={this.dragEnd.bind(this, i)}
+                      onTouchMove={this.touchMove.bind(this, i)}
+                      onTouchStart={this.dragStart.bind(this, i)}
                       draggable="true"
                       onDrop={this.dragEnd.bind(this, i)}
                       onDragStart={this.dragStart.bind(this, i)}
-                      onMouseOver={this.deleteZone.bind(this, i)}
-                      // onDragEnd={this.removeImage.bind(this, i)}
-                      // onDrag={this.position.bind(this, i)}
                       className='touchControl'
                       >
-                        <button onClick="removeImage"className="deleteButton">delete</button>
+                        <button onClick={this.removeImage} className="deleteButton">del</button>
                         <img src={file.preview}/>
 
                       </div>
@@ -135,7 +124,7 @@ var Wording = React.createClass({
   suggestSelected: function(x){
     this.setState({address:x})
   },
-  getValues: function() {
+  getValues: function(e) {
     var fields = ["price","bed","bath","description"]
     var that = this;
     var values = {}
@@ -143,8 +132,14 @@ var Wording = React.createClass({
         function(field) {
         values[field] = that.refs[field].value;
         });
-    values.homeAddress = this.state.address    
+  //   console.log(this.state.address.placeId)
+  //   if (!this.state.address.placeId) {
+  //   this.refs.address.focus()
+  //   this.stopPropagation();
+  // } else {}
+    values.homeAddress = this.state.address
     return values
+
   },
   render: function(){
     var label = function(suggest){
@@ -159,7 +154,7 @@ var Wording = React.createClass({
           <label className="labelBathAndBed">Bedrooms:<input type='text' ref="bed" defaultValue="3" className="beds" maxLength="1"/></label>
           <label className="labelBathAndBed">Bathrooms:<input type='text' ref="bath" defaultValue="2" className="baths" maxLength="1"/></label>
         </div>
-        <div><textarea className="description" ref="description" defaultValue="Facing green space and gardens this end unit is a one of a kind executive town home with its modern and luxury finishings. The beautiful home has colonial trim through out and tile flooring in foyer. 
+        <div><textarea className="description" ref="description" defaultValue="Facing green space and gardens this end unit is a one of a kind executive town home with its modern and luxury finishings. The beautiful home has colonial trim through out and tile flooring in foyer.
 
 The fully finished basement is tile with a full bathroom and laundry room. Attractive kitchen with good cupboard & counter space and 3 appliances. All three bathrooms, and garage have been  updated. Hardwood floors on main level as well as 2nd level. Master bedroom has cheater door to main bath.
 
@@ -217,7 +212,7 @@ var Navigation = React.createClass({
   }
 });
 
-// The main application layout  
+// The main application layout
 // this.props.children will be set by React Router depending on the current route
 var App = React.createClass({
   componentDidMount(){
@@ -227,7 +222,7 @@ var App = React.createClass({
     hub.removeListener("save", this.openModal);
   },
     getInitialState: function() {
-    return { 
+    return {
       modalIsOpen: false,
       // Name: "Enter your name on the Feature Sheet",
       // Email: "Enter your email on the Feature Sheet",
@@ -262,13 +257,13 @@ var App = React.createClass({
     })
   },
   render: function() {
-    
+
     if (!this.state.Mainimage === false){
       var backgroundFromImage = "linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('"+ this.state.Mainimage +"')";
     } else {
       var backgroundFromImage = "white";
     }
-    
+
     const customStyles = {
       content : {
         color                 : 'white',
@@ -288,11 +283,10 @@ var App = React.createClass({
     return (
       <main>
       <ToolBar />
-      <div id="header">
-        <h1 id="logo">yocaza</h1>
-        <h2 id='tagline'>feature sheet generator</h2>
+      <div id="Mobileheader">
+        <h1 id="Mobilelogo">yocaza tools</h1>
+        <h2 id="Mobiletagline">feature sheet generator</h2>
       </div>
-      
       <page id="A4">
        <FeatureSheet ref="featuresheetpage"/>
       </page>
@@ -330,9 +324,9 @@ var FeatureSheet = React.createClass({
     };
     hub.emit("save", featureSheet);
   },
-  
+
   render: function() {
-    
+
     return (
       <div>
         <DropImages classname="mainImg" maxFiles="1" ref='mi'/>
@@ -351,13 +345,24 @@ var FeatureSheet = React.createClass({
 var ToolBar = React.createClass({
   onTheEvent: function(e){
         e.preventDefault();
-      
         hub.emit("data-request");
+  },
+  onLogin: function(e){
+      e.preventDefault();
+  },
+  onPrint: function(e){
+      e.preventDefault();
+      window.print();
   },
   render: function(){
     return (
       <div id="toolbar">
-        <button className="submitButton" onClick={this.onTheEvent}>Send PDF</button>
+        <div id='logo'><h1>yocaza tools</h1><h2>feature sheet generator</h2></div>
+        <div className="options">
+          <button className="loginButton" onClick={this.onLogin}>Sign in</button>
+          <button className="printButton" onClick={this.onPrint}>Print</button>
+          <button className="submitButton" onClick={this.onTheEvent}>Send PDF</button>
+        </div>
       </div>
     );
   }

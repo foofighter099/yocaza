@@ -5,63 +5,46 @@ html {
 *, *::before, *::after {
   box-sizing: inherit;
 }
-
-#header {
-  display:table;
-  margin:auto;
-}
-#logo { 
-  color: #157ad8; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 245px; 
-  font-weight: bold; 
-  letter-spacing: -1px; 
-  line-height: 0; 
-  text-align: center; 
-  margin-top: 100px;
-}
-
-#tagline {
-  color: #111; 
-  font-family: 'Open Sans', sans-serif; 
-  font-size: 30px; 
-  font-weight: 300; 
-  line-height: 32px; 
-  margin: -65px 0px 60px 0px;
-  text-align: right; 
+#Mobileheader {
+  display:none;
 }
 
 body {
-  background: #F5F5F5; 
+  background: #F5F5F5;
 }
 #A4 {
   background: white;
   width: 21.6cm;
   height: 27.9cm;
   display: block;
-  margin: 0 auto;
-  margin-bottom: 1.5cm;
-  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  margin: 50px auto;
+  margin-bottom: 3.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.3);
 }
 @media print {
-  #A4 {
+  page#A4 {
     box-shadow: none;
+    margin:0;
   }
-  #header {
-    display:none;
+  div.imageContainer{
+    margin-left: -4px;
+    height:16cm;
   }
-  .submitButton {
-    display:none;
+  div#toolbar {
+    display: none;
+  }
+  .touchControl:hover button.deleteButton {
+    display: none;
   }
   @page {
-    margin:0;
+    margin:0.64cm;
   }
 }
 
 .mainImg {
   background-image: url("./placeholderimages/mainImagePlaceholder.png");
   background-color: #fff;
-  width: 100%;
+  width: 21.6cm;
   height:12cm;
   overflow: hidden;
   background-position: center center
@@ -90,10 +73,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  margin: 8px 8px 0 8px;
+  margin: 4px 8px 0 8px;
   height:15.48cm;
   width: 9cm;
-  background-color:rgb(204,204,204);
+  background-image:url('./placeholderimages/subimage.png');
+}
+
+.containerBackground {
+  background-image:none;
 }
 
 .few-images .imageContainer {
@@ -103,13 +90,14 @@ body {
 .imageContainer div{
   flex:1 0 50%;
   padding: 4px;
-  /*background-clip: content-box;*/
   border: 4px solid white;
   position: relative;
 }
 .few-images .imageContainer div {
-  min-height: 50%;
-  min-width: 100%;
+  /*min-height: 50%;
+  min-width: 100%;*/
+  height:50%;
+  flex:1 0 51%;
 }
 .imageContainer div img {
   position: absolute;
@@ -140,33 +128,33 @@ body {
 }
 
 .address {
-  color: #157ad8; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 30px; 
-  font-weight: bold; 
-  letter-spacing: -1px; 
+  color: #157ad8;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: -1px;
   padding-top: 10px;
   width: 100%;
   border: none;
 }
 
-.price { 
-  color: #111; 
-  font-family: 'Open Sans', sans-serif; 
-  font-size: 25px; 
-  font-weight: 300; 
-  line-height: 32px; 
-  text-align: left; 
+.price {
+  color: #111;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 32px;
+  text-align: left;
   border: none;
   width: 225px;
 }
 
-.description { 
-  color: #685206; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 14px; 
-  text-align: justify; 
-  text-justify: inter-word; 
+.description {
+  color: #212121;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  text-align: justify;
+  text-justify: inter-word;
   width: 11.9cm;
   height: 260px;
   border: none;
@@ -196,19 +184,19 @@ body {
 
 
 .name {
-  color: black; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 25px; 
-  font-weight: bold; 
-  letter-spacing: -1px; 
+  color: black;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: -1px;
   width: 100%;
   border: none;
   text-align: right;
 }
 .email {
-  color: #999; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 20px; 
+  color: #999;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 20px;
   width: 100%;
   border: none;
   text-align: right;
@@ -216,9 +204,9 @@ body {
 }
 
 .heading {
-  color: black; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 15px; 
+  color: black;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 15px;
   width: 100%;
   border: none;
   text-align: right;
@@ -226,9 +214,9 @@ body {
 }
 
 .phone {
-  color: #999; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 20px; 
+  color: #999;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 20px;
   width: 100%;
   border: none;
   text-align: right;
@@ -236,9 +224,9 @@ body {
 }
 
 .other {
-  color: #999; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 15px; 
+  color: #999;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 15px;
   width: 100%;
   border: none;
   text-align: right;
@@ -246,9 +234,9 @@ body {
 }
 
 .labelBathAndBed{
-  color: black; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 15px; 
+  color: black;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 15px;
   text-align: right;
 }
 
@@ -274,12 +262,12 @@ body {
 .geosuggest__input:focus {
   border-color: #267dc0;
   box-shadow: 0 0 0 transparent;
-  
-  color: #157ad8; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 20px; 
-  font-weight: bold; 
-  letter-spacing: -1px; 
+
+  color: #157ad8;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: -1px;
 }
 .geosuggest__suggests {
   position: absolute;
@@ -298,7 +286,7 @@ body {
   z-index: 5;
   -webkit-transition: max-height 0.2s, border 0.2s;
           transition: max-height 0.2s, border 0.2s;
-          
+
 }
 .geosuggest__suggests--hidden {
   max-height: 0;
@@ -310,15 +298,15 @@ body {
  * A geosuggest item
  */
 input.geosuggest__input {
-  color: #157ad8; 
-  font-family: 'Helvetica Neue', sans-serif; 
-  font-size: 20px; 
-  font-weight: bold; 
-  letter-spacing: -1px; 
+  color: #157ad8;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: -1px;
   margin-left: 0;
   padding-left: 2px;
-} 
- 
+}
+
 .geosuggest-item {
   font-size: 18px;
   padding: .5em .65em;
@@ -337,6 +325,7 @@ input.geosuggest__input {
   background: #ccc;
 }
 
+
 /*ToolBar*/
 #toolbar{
   width:100%;
@@ -344,23 +333,160 @@ input.geosuggest__input {
   position: fixed;
   left:0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items:center;
-}
-
-#toolbar {
   display: flex;
   z-index: 6;
-  justify-content:flex-end;
+  background-color: white;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
 }
 
-#toolbar button {
-  background-color: orange; 
-  font-size:2em;
-  width:20%;
-  border: 2px solid white;
+#toolbar #logo{
+  width: 300px;
+  margin: 10px 10px 10px 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
 
-} 
+#logo h1 {
+  color: #157ad8;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin: 0 10px 5px 0;
+  word-break: keep-all;
+}
+#logo h2{
+  word-wrap: break-word;
+  color: #111;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  margin:0px;
+}
+.options{
+  min-height:60%;
+  margin: auto 35px auto 35px;
+  display:flex;
+  flex-wrap:nowrap;
+}
+.options button {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    white-space: nowrap;
+    background-color: #ccc;
+    background-image: linear-gradient(top, #eee, #ccc);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eeeeee', EndColorStr='#cccccc');
+    border: 1px solid #777;
+    padding: 0 1.5em;
+    margin: 0.5em;
+    font: bold 1em/2em Arial, Helvetica;
+    text-decoration: none;
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255,255,255,.8);
+    border-radius: .2em;
+    box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+}
+
+.options button:hover {
+    background-color: #ddd;
+    background-image: linear-gradient(top, #fafafa, #ddd);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa', EndColorStr='#dddddd');
+}
+
+.options button:active {
+    box-shadow: 0 0 4px 2px rgba(0,0,0,.3) inset;
+    position: relative;
+    top: 1px;
+}
+
+.options button:focus {
+    outline: 0;
+    background: #fafafa;
+}
+
+.options button:before {
+    background: #ccc;
+    background: rgba(0,0,0,.1);
+    float: left;
+    width: 1em;
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0 1em 0 -1em;
+    padding: 0 .2em;
+    box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+    border-radius: .15em 0 0 .15em;
+    pointer-events: none;
+}
+
+.submitButton:before {
+  box-sizing: content-box;
+  font-family: FontAwesome;
+  content: "\f1c1";
+}
+
+.loginButton:before {
+  box-sizing: content-box;
+  font-family: FontAwesome;
+  content: "\f090";
+}
+
+.printButton:before {
+  box-sizing: content-box;
+  font-family: FontAwesome;
+  content: "\f02f";
+}
+
+@media (max-device-width: 480px) {
+
+#toolbar #logo{
+  display:none;
+}
+
+#toolbar{
+  height:100px;
+}
+
+.options {
+  width:100%;
+}
+.options button {
+  font-size: 30px;
+}
+#Mobileheader {
+  display:table;
+  margin:auto;
+}
+#Mobilelogo {
+  color: #157ad8;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 135px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 0;
+  text-align: center;
+  margin-top: 60px;
+}
+
+#Mobiletagline {
+  color: #111;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 32px;
+  margin: -35px 0px 0px 0px;
+  text-align: right;
+}
+
+}
+
+/*TOOLBAR OVER */
+
 
 .contactcard{
   align-self: flex-end;
@@ -380,7 +506,19 @@ input.geosuggest__input {
 }
 
 .deleteButton{
+    color: white;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+    display: none;
+    border-radius: 5px;
+    background-color: rgba(255,0,0,0.5);
+    border: none;
+}
+.touchControl {
   position: relative;
-  z-index: 2;
-  /*display:none;*/
+}
+.touchControl:hover .deleteButton {
+  display:initial;
 }

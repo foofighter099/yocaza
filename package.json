@@ -4,7 +4,8 @@
   "description": "React pizza ordering project for DecodeMTL bootcamp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "mandrill": "^0.1.0",
     "parse": "^1.7.1",
     "react": "^0.14.7",
+    "react-burger-menu": "^1.5.6",
     "react-dom": "^0.14.7",
     "react-dropzone": "^3.3.2",
     "react-geosuggest": "^1.18.1",
