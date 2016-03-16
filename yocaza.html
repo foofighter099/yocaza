@@ -108,7 +108,7 @@
     By default, the user is not logged in and cannot own saved data.
     */
     Parse.initialize("lQnkbNmyR7nIjCi8T2afRofbjAu0XoiwawDoS0oj", "WDCLF1vNBUpVZmL69ObLXLjZfUeYvxdCA0luVDR7");
-    
+    window.Parse = Parse;
     var House = Parse.Object.extend('House');
     
     var fileUploadControl = $("#propertyPhotoUpload")[0];

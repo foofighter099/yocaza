@@ -2,7 +2,9 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 require('../css/app.css');
 var Modal = require('react-modal');
-
+var Parse = require('parse');
+Parse.initialize("lQnkbNmyR7nIjCi8T2afRofbjAu0XoiwawDoS0oj", "WDCLF1vNBUpVZmL69ObLXLjZfUeYvxdCA0luVDR7");
+window.Parse=Parse;
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
@@ -242,6 +244,7 @@ var App = React.createClass({
     }
     else {
     this.setState({
+      houseData: x,
       modalIsOpen: true,
       Email: x.agentContactInfo.email,
       Mainimage: x.mainImage[0].preview
@@ -252,6 +255,11 @@ var App = React.createClass({
     this.setState({
       modalIsOpen: false
     });
+  },
+  sendPdf: function() {
+    Parse.Cloud.run('savePdf', {agentContact: this.state.houseData.agentContactInfo, homeDetails: this.state.houseData.homeDetails}).then(function(res){
+      console.log(res);
+    })
   },
   render: function() {
     
@@ -297,9 +305,7 @@ var App = React.createClass({
               <br />
               <div>{this.state.Email}</div>
               <br />
-              <form>
-                <button onClick={this.closeModal}>Send PDF</button>
-              </form>
+              <button onClick={this.sendPdf}>Send PDF</button>
               <br />
               <br />
           </Modal>
@@ -345,23 +351,6 @@ var FeatureSheet = React.createClass({
 var ToolBar = React.createClass({
   onTheEvent: function(e){
         e.preventDefault();
-        
-        html2canvas(document.querySelector('#A4'),{
-     imageTimeout:10000,
-     removeContainer:true,
-     allowTaint: true
-    }).then(
-      function(x) {
-        console.log(x);
-        var img = x.toDataURL("image/png");
-        var doc = new jsPDF({
-          unit:'px', 
-          format:'a4'
-        });     
-        doc.addImage(img, 'JPEG', 20, 20);
-        doc.save('feature-sheet.pdf');
-      }
-    );
       
         hub.emit("data-request");
   },
