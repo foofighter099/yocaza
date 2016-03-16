@@ -52,7 +52,14 @@ var DropImages = React.createClass({
 
 
   },
-
+    onTouchStart: function(e,x){
+      this.is_touch = (x.touches);
+      this.touching = true;
+      this.onTouchMove(x);
+    },
+    touchMove: function(e,x){
+      x.dataTransfer.getData("text")
+    },
     onDrop: function (files) {
       if (this.state.files.length > 0){
         files.map((file) => this.state.files.push(file))
@@ -92,8 +99,8 @@ var DropImages = React.createClass({
                       <div
                       key={i}
                       data-tag={i}
-                      onTouchEnd={this.dragEnd.bind(this, i)}
-                      onTouchMove={this.dragStart.bind(this, i)}
+                      // onTouchEnd={this.dragEnd.bind(this, i)}
+                      onTouchMove={this.touchMove.bind(this, i)}
                       onTouchStart={this.dragStart.bind(this, i)}
                       draggable="true"
                       onDrop={this.dragEnd.bind(this, i)}
