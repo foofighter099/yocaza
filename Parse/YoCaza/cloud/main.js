@@ -3,6 +3,11 @@ Parse.Cloud.define('hello', function(req, res){
   res.success('hello')
 })
 
+var House = Parse.Object.extend('House');
+Parse.Cloud.define('hello', function(req, res){
+  res.success('hello')
+})
+
 Parse.Cloud.define('savePdf', function(req, res){
   var newHouse = new House()
   newHouse.set({
@@ -36,7 +41,16 @@ Parse.Cloud.define('savePdf', function(req, res){
     query.find().then(function(users){
       if(users.length===0){
         var random = ('' + Math.random()).substring(2);
-        Parse.User.signUp(req.params.agentContact.email, random).then(
+        var user = new Parse.User();
+        user.set({
+          username: req.params.agentContact.email,
+          email: req.params.agentContact.email,
+          name: req.params.agentContact.name,
+          password: random,
+          phone: req.params.agentContact.phone,
+          role: req.params.agentContact.role
+        })
+        user.signUp().then(
           function(user){
             newHouse.set('user', user).save().then(
               function(newHouse){
@@ -67,30 +81,3 @@ Parse.Cloud.define('savePdf', function(req, res){
     })
   }
 })
-var mandrill = require("mandrill");
-mandrill.initialize("XeknPzu2NOlo4Tmt_C5_HA");
-
-Parse.Cloud.define("emailTest", function(req, res) {
-  mandrill.sendEmail({
-    message: {
-      text: "Attached you will find your feature sheet. Thank you for using YoCaza!",
-      subject: "Your YoCaza feature sheet!",
-      from_email: "donotreply@yocaza.com",
-      from_name: "YoCaza",
-      to: [
-        {
-          email: "andrewtognarini@gmail.com",
-          name: "Andrew"
-        }
-      ]
-    },
-    async: true
-  }, {
-    success: function(httpResponse) { res.success("Email sent!"); },
-    error: function(httpResponse) { res.error("Uh oh, something went wrong"); }
-  });
-}
-)
-  //find out how to test the email aspect
-  //in chrome console --> Parse.run
-  //powershell = Parse develop YoCaza

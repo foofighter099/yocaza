@@ -64,15 +64,6 @@ var DropImages = React.createClass({
       x.dataTransfer.getData("text")
     },
     onDrop: function (files) {
-      if (this.state.files.length > 0){
-        files.map((file) => this.state.files.push(file))
-        this.forceUpdate()
-      } else {
-      this.setState({
-        files: files
-      });
-      }
-      
       this.setState({
         files: this.state.files.concat(files),
         parseFiles: this.state.parseFiles.concat(
