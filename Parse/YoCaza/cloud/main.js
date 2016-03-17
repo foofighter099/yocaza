@@ -48,7 +48,9 @@ Parse.Cloud.define('savePdf', function(req, res){
           name: req.params.agentContact.name,
           password: random,
           phone: req.params.agentContact.phone,
-          role: req.params.agentContact.role
+          role: req.params.agentContact.role,
+          heading: req.params.agentContact.heading,
+          other: req.params.agentContact.other
         })
         user.signUp().then(
           function(user){
